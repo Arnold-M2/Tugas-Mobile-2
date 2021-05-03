@@ -1,0 +1,94 @@
+import 'package:flutter/material.dart';
+void main() => runApp(App());
+
+class App extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter database SQFLITE',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Arnold 6SIA11'),
+        ),
+        body: Sepeda(),
+      ),
+    );
+  }
+}
+
+class DataSepeda{
+  String kode_sepeda;
+  String nama_sepeda;
+  String merek_sepeda;
+  String harga_sepeda;
+  
+  
+  DataSepeda({this.kode_sepeda, this.nama_sepeda, this.merek_sepeda, this.harga_sepeda});
+  
+}
+
+// class Sepeda
+class Sepeda extends StatefulWidget {
+  _MyappState createState() => _MyappState();
+}
+
+class _MyappState extends State<Sepeda> {
+  //deklarasi variabel
+  final txtkode_sepeda = TextEditingController();
+  final txtnama_sepeda = TextEditingController();
+  final txtmerek_sepeda = TextEditingController();
+  final txtharga_sepeda = TextEditingController();
+  
+
+  List<Widget> data = [];
+
+  onTambah() {
+    setState(() {
+      data.add(ListTile(
+        leading: Text(txtkode_sepeda.text),
+        title: Text(txtnama_sepeda.text),
+        subtitle: Text(txtmerek_sepeda.text),
+        trailing: Text(txtharga_sepeda.text),
+      ));
+      txtkode_sepeda.clear();
+      txtnama_sepeda.clear();
+      txtmerek_sepeda.clear();
+      txtharga_sepeda.clear();
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        new Container(
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+               TextField(
+                controller: txtkode_sepeda,
+                decoration: InputDecoration(hintText: 'Kode Sepeda'),
+              ),
+              TextField(
+                controller: txtnama_sepeda,
+                decoration: InputDecoration(hintText: 'Nama Sepeda'),
+              ),
+              TextField(
+                controller: txtmerek_sepeda,
+                decoration: InputDecoration(hintText: 'Merek Sepeda'),
+              ),
+              TextField(
+                controller: txtharga_sepeda,
+                decoration: InputDecoration(hintText: 'Harga Sepeda'),
+              ),
+              Divider(height: 5.0),
+             ElevatedButton(child: Text("Tambah"), onPressed: onTambah),
+            ],
+          ),
+        ),
+        new Column(
+          children: data,
+        )
+      ],
+    );
+  }
+}
